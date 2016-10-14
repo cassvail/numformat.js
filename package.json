@@ -1,0 +1,38 @@
+{
+  "name": "numformat.js",
+  "version": "0.1.0",
+  "description": "number, decimal, integer, money and currency formatting library, with two way custom format/unformat symbols and patterns",
+  "main": "numformat.js",
+  "scripts": {
+    "test": "mocha tests/test.js",
+    "uglify": "node_modules/uglify-js/bin/uglifyjs numformat.js > numformat.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cassvail/numformat.js.git > "
+  },
+  "keywords": [
+    "number",
+    "integer",
+    "decimal",
+    "money",
+    "currency",
+    "format",
+    "unformat",
+    "utilities",
+    "finance",
+    "exchange",
+    "pattern"
+  ],
+  "author": "Cassiano Vailati <c.vailati@esconsulting.it>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/cassvail/numformat.js/issues"
+  },
+  "homepage": "https://github.com/cassvail/numformat.js#README",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^3.0.2",
+    "uglify-js": "^2.7.3"
+  }
+}
