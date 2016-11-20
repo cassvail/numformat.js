@@ -25,7 +25,7 @@
     "pattern"
   ],
   "author": "Cassiano Vailati <c.vailati@esconsulting.it>",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cassvail/numformat.js/issues"
   },
