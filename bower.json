@@ -1,6 +1,6 @@
 {
   "name": "numformat.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "number, decimal, integer, money and currency formatting library, with two way custom format/unformat symbols and patterns",
   "ignore": [
     "**/.*",
@@ -9,9 +9,6 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "blockUI": "*"
-  },
   "authors": [
     "cassvail"
   ],
