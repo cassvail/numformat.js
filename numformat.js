@@ -140,8 +140,7 @@
     }
 
     function toFixedValue(value, decimalPlaces) {
-        // return parseFloat(Math.round(value * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces))
-        return parseFloat(value).toFixed(decimalPlaces);
+        return (value < 0 ? -1 : 1) * parseFloat(Math.round(Math.abs(value) * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces))
     }
 
     nf.formatNumber = function(value, options)
@@ -161,54 +160,54 @@
 
         value = parseFloat(value);
 
-        if(isNaN(value) || value == 0) {
-            value = opts.emptyValue;
-        } else {
-            //rounding decimals
-            if(opts.toFixed) value = toFixedValue(value, opts.decimalPlaces);
-            value += '';
+        //rounding decimals
+        if(opts.toFixed) value = toFixedValue(value, opts.decimalPlaces);
 
-            var sign = '';
-            if(value.indexOf('-') >= 0) {
-                sign = opts.negativeSymbol;
-                value = value.replace(/-/g,'');
-            }
-
-            var leftPart = '';
-            var valueArray = value.split('.');
-            var left = valueArray[0];
-            var right = valueArray[1] ? valueArray[1] : '';
-
-            var decimalSeparator = '';
-            if(opts.decimalPlaces > 0) {
-                decimalSeparator = opts.decimalSeparator;
-                if(opts.toFixed) right = padRight(right, opts.decimalPlaces, '0');
-                else if(right.length == 0) decimalSeparator = ''; //remove decimalSeparator when handling integer without toFixed
-            }
-
-            if(opts.thousandSeparator != null && opts.thousandSeparator !== '') {
-                while (left.length > 3) {
-                    var l = left.substr(0, left.length-3);
-                    var r = left.substr(left.length-3, left.length-1);
-
-                    left = l + opts.thousandSeparator + r;
-                    leftPart = opts.thousandSeparator + r + leftPart;
-
-                    left = left.substr(0, left.indexOf(opts.thousandSeparator)).toString();
-                }
-            } else {
-                leftPart = '';
-            }
-            leftPart = left + leftPart;
-
-            value = opts.pattern
-                        .replace(new RegExp('%n'), sign)
-                        .replace(new RegExp('%i'), leftPart)
-                        .replace(new RegExp('%s'), decimalSeparator)
-                        .replace(new RegExp('%d'), right)
-                        .replace(new RegExp('%c'), opts.currencySymbol);
-            // value = ((leftPart != '') ? leftPart : left )+ right;
+        if(isNaN(value) || value === 0) {
+          return opts.emptyValue;
         }
+
+        value += '';
+        var sign = '';
+        if(value.indexOf('-') >= 0) {
+            sign = opts.negativeSymbol;
+            value = value.replace(/-/g,'');
+        }
+
+        var leftPart = '';
+        var valueArray = value.split('.');
+        var left = valueArray[0];
+        var right = valueArray[1] ? valueArray[1] : '';
+
+        var decimalSeparator = '';
+        if(opts.decimalPlaces > 0) {
+            decimalSeparator = opts.decimalSeparator;
+            if(opts.toFixed) right = padRight(right, opts.decimalPlaces, '0');
+            else if(right.length == 0) decimalSeparator = ''; //remove decimalSeparator when handling integer without toFixed
+        }
+
+        if(opts.thousandSeparator != null && opts.thousandSeparator !== '') {
+            while (left.length > 3) {
+                var l = left.substr(0, left.length-3);
+                var r = left.substr(left.length-3, left.length-1);
+
+                left = l + opts.thousandSeparator + r;
+                leftPart = opts.thousandSeparator + r + leftPart;
+
+                left = left.substr(0, left.indexOf(opts.thousandSeparator)).toString();
+            }
+        } else {
+            leftPart = '';
+        }
+        leftPart = left + leftPart;
+
+        value = opts.pattern
+                    .replace(new RegExp('%n'), sign)
+                    .replace(new RegExp('%i'), leftPart)
+                    .replace(new RegExp('%s'), decimalSeparator)
+                    .replace(new RegExp('%d'), right)
+                    .replace(new RegExp('%c'), opts.currencySymbol);
+        // value = ((leftPart != '') ? leftPart : left )+ right;
 
         return value;
     };

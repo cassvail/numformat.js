@@ -21,12 +21,24 @@ describe('numformat', function() {
             assert.equal(nf.formatNumber(0), '');
         });
 
+        it('should format zero values with lower precision', function() {
+            assert.equal(nf.formatNumber(-0.0001), '');
+        });
+
         it('should format decimal', function() {
             assert.equal(nf.formatNumber(0.123), '0.12');
         });
 
         it('should format decimal with leading .', function() {
             assert.equal(nf.formatNumber(0.123), '0.12');
+        });
+
+        it('should format decimal rounding', function() {
+            assert.equal(nf.formatNumber(1.345), '1.35');
+        });
+
+        it('should format negative decimal rounding', function() {
+            assert.equal(nf.formatNumber(-1.345), '-1.35');
         });
     });
 
@@ -89,7 +101,7 @@ describe('numformat', function() {
         });
 
         it('should format Numeric after Integer (not overriding settings)', function() {
-            assert.equal(nf.formatNumber(1.345), '1.34');
+            assert.equal(nf.formatNumber(1.234), '1.23');
         });
     });
 
